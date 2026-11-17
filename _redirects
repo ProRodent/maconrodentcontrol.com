@@ -1,0 +1,11 @@
+/index.html                /                       301
+/about.html                /about                  301
+/contact.html              /contact                301
+/privacy.html              /privacy                301
+/terms.html                /terms                  301
+/services/index.html       /services/              301
+/areas/index.html          /areas/                 301
+/blog/index.html           /blog/                  301
+/services/:slug.html       /services/:slug         301
+/areas/:slug.html          /areas/:slug            301
+/blog/:slug.html           /blog/:slug             301

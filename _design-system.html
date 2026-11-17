@@ -1,0 +1,886 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cherry Street Classic — Design System Reference</title>
+<meta name="description" content="Locked visual design system for maconrodentcontrol.com — Cherry Street Classic palette, typography, and component library reference.">
+<meta name="robots" content="noindex,nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  /* ============================================================
+     CHERRY STREET CLASSIC — DESIGN TOKENS
+     ============================================================ */
+  :root {
+    /* Color palette */
+    --charcoal:        #1A1A1A;   /* primary surface (hero band, footer, body text on white) */
+    --charcoal-soft:   #2A2A2A;   /* secondary dark surface */
+    --warm-white:      #FAF7F2;   /* page background / cards on dark */
+    --warm-white-2:    #F2EDE4;   /* subtle warm surface */
+    --cherry-red:      #C8323C;   /* primary CTA / accent */
+    --cherry-red-dk:   #A0252E;   /* CTA hover */
+    --gold-rule:       #C9A24B;   /* thin accent rule under H1 / dividers */
+    --gold-soft:       #E8D5A0;   /* hover state on gold elements */
+    --ink:             #1A1A1A;   /* body copy */
+    --ink-soft:        #4A4A4A;   /* secondary body */
+    --ink-muted:       #6E6E6E;   /* tertiary / captions */
+    --border:          #E5DDD0;   /* warm border */
+    --border-strong:   #C9BFA8;
+
+    /* Typography */
+    --font-serif: 'DM Serif Display', Georgia, 'Times New Roman', serif;
+    --font-sans:  'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+    /* Type scale */
+    --fs-display: clamp(2.4rem, 5vw, 3.6rem);   /* H1 / hero */
+    --fs-h1:      clamp(2rem, 4vw, 2.8rem);
+    --fs-h2:      clamp(1.5rem, 2.6vw, 2rem);
+    --fs-h3:      clamp(1.2rem, 1.8vw, 1.4rem);
+    --fs-body:    1.0625rem;   /* 17px */
+    --fs-small:   0.9375rem;   /* 15px */
+    --fs-micro:   0.8125rem;   /* 13px */
+
+    /* Spacing scale */
+    --s-1: 0.5rem;
+    --s-2: 1rem;
+    --s-3: 1.5rem;
+    --s-4: 2rem;
+    --s-5: 3rem;
+    --s-6: 4rem;
+    --s-7: 6rem;
+
+    /* Layout */
+    --container: 1140px;
+    --container-narrow: 820px;
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --radius-pill: 999px;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    font-family: var(--font-sans);
+    font-size: var(--fs-body);
+    line-height: 1.65;
+    color: var(--ink);
+    background: var(--warm-white);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ============================================================
+     TYPOGRAPHY
+     ============================================================ */
+  h1, h2, h3, h4 {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    line-height: 1.15;
+    margin: 0 0 var(--s-2);
+    color: var(--ink);
+    letter-spacing: -0.01em;
+  }
+  h1 { font-size: var(--fs-h1); }
+  h2 { font-size: var(--fs-h2); margin-top: var(--s-5); }
+  h3 { font-size: var(--fs-h3); margin-top: var(--s-3); }
+  p  { margin: 0 0 var(--s-2); color: var(--ink-soft); max-width: 68ch; }
+  a  { color: var(--cherry-red); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }
+  a:hover { color: var(--cherry-red-dk); }
+
+  /* Gold rule under section headings */
+  .gold-rule::after {
+    content: '';
+    display: block;
+    width: 64px;
+    height: 2px;
+    background: var(--gold-rule);
+    margin-top: 0.6rem;
+  }
+
+  /* ============================================================
+     LAYOUT
+     ============================================================ */
+  .container       { max-width: var(--container); margin: 0 auto; padding: 0 var(--s-3); }
+  .container-narrow{ max-width: var(--container-narrow); margin: 0 auto; padding: 0 var(--s-3); }
+  section          { padding: var(--s-6) 0; }
+  .swatch-grid     { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: var(--s-2); margin: var(--s-3) 0; }
+
+  /* ============================================================
+     HEADER (reference — used on every page)
+     ============================================================ */
+  .site-header {
+    background: var(--warm-white);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 50;
+  }
+  .nav-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--s-2) var(--s-3);
+    max-width: var(--container);
+    margin: 0 auto;
+    gap: var(--s-3);
+  }
+  .brand {
+    font-family: var(--font-serif);
+    font-size: 1.5rem;
+    color: var(--ink);
+    text-decoration: none;
+    line-height: 1;
+  }
+  .brand-mark { color: var(--cherry-red); }
+  .nav-links { display: flex; gap: var(--s-3); list-style: none; padding: 0; margin: 0; align-items: center; }
+  .nav-links a {
+    color: var(--ink);
+    text-decoration: none;
+    font-size: var(--fs-small);
+    font-weight: 500;
+  }
+  .nav-links a:hover { color: var(--cherry-red); }
+  .nav-call {
+    background: var(--cherry-red);
+    color: var(--warm-white) !important;
+    padding: 0.6rem 1.1rem;
+    border-radius: var(--radius-sm);
+    font-weight: 600 !important;
+    transition: background 0.15s;
+  }
+  .nav-call:hover { background: var(--cherry-red-dk); }
+  @media (max-width: 760px) {
+    .nav-links li:not(:last-child) { display: none; }
+  }
+
+  /* ============================================================
+     HERO (Cherry Street marquee style)
+     ============================================================ */
+  .hero {
+    background: var(--charcoal);
+    color: var(--warm-white);
+    padding: var(--s-7) 0 var(--s-6);
+    border-bottom: 4px solid var(--cherry-red);
+  }
+  .hero h1 {
+    color: var(--warm-white);
+    font-size: var(--fs-display);
+    max-width: 18ch;
+    margin: 0 0 var(--s-2);
+  }
+  .hero h1::after {
+    content: '';
+    display: block;
+    width: 80px;
+    height: 2px;
+    background: var(--gold-rule);
+    margin-top: var(--s-2);
+  }
+  .hero p.lede {
+    color: var(--warm-white-2);
+    font-size: 1.25rem;
+    max-width: 56ch;
+    margin: 0 0 var(--s-3);
+  }
+  .hero .badge {
+    display: inline-block;
+    background: rgba(201, 162, 75, 0.18);
+    color: var(--gold-soft);
+    border: 1px solid var(--gold-rule);
+    padding: 0.35rem 0.8rem;
+    border-radius: var(--radius-pill);
+    font-size: var(--fs-micro);
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    margin-bottom: var(--s-3);
+  }
+
+  /* ============================================================
+     BUTTONS
+     ============================================================ */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.95rem 1.6rem;
+    border-radius: var(--radius-sm);
+    font-family: var(--font-sans);
+    font-weight: 600;
+    font-size: 1rem;
+    text-decoration: none;
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: all 0.15s;
+    line-height: 1;
+  }
+  .btn-primary {
+    background: var(--cherry-red);
+    color: var(--warm-white);
+    border-color: var(--cherry-red);
+  }
+  .btn-primary:hover { background: var(--cherry-red-dk); border-color: var(--cherry-red-dk); color: var(--warm-white); }
+  .btn-secondary {
+    background: transparent;
+    color: var(--warm-white);
+    border-color: var(--warm-white);
+  }
+  .btn-secondary:hover { background: var(--warm-white); color: var(--charcoal); }
+  .btn-outline-dark {
+    background: transparent;
+    color: var(--ink);
+    border-color: var(--ink);
+  }
+  .btn-outline-dark:hover { background: var(--ink); color: var(--warm-white); }
+  .btn-lg { padding: 1.1rem 2rem; font-size: 1.1rem; }
+
+  /* ============================================================
+     TRUST STRIP
+     ============================================================ */
+  .trust-strip {
+    background: var(--warm-white-2);
+    padding: var(--s-2) 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .trust-strip-inner {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: var(--s-4);
+    font-size: var(--fs-small);
+    color: var(--ink-soft);
+    font-weight: 500;
+  }
+  .trust-strip-inner span::before {
+    content: '✓';
+    color: var(--cherry-red);
+    font-weight: 700;
+    margin-right: 0.4rem;
+  }
+
+  /* ============================================================
+     CARDS
+     ============================================================ */
+  .card-grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: var(--s-3); }
+  .card-grid-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--s-2); }
+  .card {
+    background: var(--warm-white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: var(--s-3);
+    transition: border-color 0.15s, transform 0.15s;
+  }
+  .card:hover { border-color: var(--cherry-red); transform: translateY(-2px); }
+  .card h3 { margin-top: 0; }
+  .card-link {
+    display: inline-block;
+    margin-top: var(--s-2);
+    color: var(--cherry-red);
+    font-weight: 600;
+    font-size: var(--fs-small);
+    text-decoration: none;
+  }
+  .card-link::after { content: ' →'; transition: transform 0.15s; display: inline-block; }
+  .card:hover .card-link::after { transform: translateX(3px); }
+
+  /* Feature card variant */
+  .card-feature {
+    background: var(--charcoal);
+    color: var(--warm-white);
+    border-color: var(--charcoal);
+  }
+  .card-feature h3 { color: var(--warm-white); }
+  .card-feature p  { color: var(--warm-white-2); }
+  .card-feature .card-link { color: var(--gold-soft); }
+
+  /* ============================================================
+     MID-PAGE CTA BAND
+     ============================================================ */
+  .cta-band {
+    background: var(--charcoal);
+    color: var(--warm-white);
+    padding: var(--s-5) 0;
+    text-align: center;
+  }
+  .cta-band h2 {
+    color: var(--warm-white);
+    margin-top: 0;
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    max-width: 24ch;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .cta-band h2::after {
+    content: '';
+    display: block;
+    width: 64px;
+    height: 2px;
+    background: var(--gold-rule);
+    margin: 0.8rem auto 0;
+  }
+
+  /* ============================================================
+     COMPARISON TABLE
+     ============================================================ */
+  .comp-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: var(--s-3) 0;
+    font-size: var(--fs-small);
+    background: var(--warm-white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+  }
+  .comp-table th,
+  .comp-table td {
+    padding: 0.85rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+  }
+  .comp-table thead th {
+    background: var(--charcoal);
+    color: var(--warm-white);
+    font-family: var(--font-serif);
+    font-weight: 400;
+    font-size: 1.05rem;
+  }
+  .comp-table tbody tr:last-child td { border-bottom: none; }
+  .comp-table tbody tr:nth-child(even) { background: var(--warm-white-2); }
+  .comp-table td:first-child { font-weight: 600; color: var(--ink); }
+
+  /* ============================================================
+     PROCESS STEPS
+     ============================================================ */
+  .process-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--s-3);
+    counter-reset: stepc;
+  }
+  .step {
+    border-top: 3px solid var(--cherry-red);
+    padding-top: var(--s-2);
+    counter-increment: stepc;
+  }
+  .step::before {
+    content: counter(stepc, decimal-leading-zero);
+    font-family: var(--font-serif);
+    font-size: 2.2rem;
+    color: var(--cherry-red);
+    line-height: 1;
+    display: block;
+    margin-bottom: 0.4rem;
+  }
+  .step h3 { margin-top: 0; font-size: 1.15rem; }
+
+  /* ============================================================
+     FAQ
+     ============================================================ */
+  .faq details {
+    border-bottom: 1px solid var(--border);
+    padding: var(--s-2) 0;
+  }
+  .faq summary {
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 1.05rem;
+    color: var(--ink);
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+  }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq summary::after {
+    content: '+';
+    color: var(--cherry-red);
+    font-size: 1.5rem;
+    font-weight: 400;
+    transition: transform 0.2s;
+  }
+  .faq details[open] summary::after { content: '−'; }
+  .faq details p { margin-top: var(--s-2); }
+
+  /* ============================================================
+     REVIEW BADGE (visual only — no JSON-LD aggregateRating)
+     ============================================================ */
+  .review-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.5rem 1rem;
+    background: var(--warm-white);
+    border: 1px solid var(--gold-rule);
+    border-radius: var(--radius-sm);
+    font-size: var(--fs-small);
+    color: var(--ink);
+  }
+  .review-stars { color: var(--gold-rule); letter-spacing: 0.1em; }
+
+  /* ============================================================
+     FOOTER (reference — identical across every page)
+     ============================================================ */
+  .site-footer {
+    background: var(--charcoal);
+    color: var(--warm-white-2);
+    padding: var(--s-5) 0 var(--s-3);
+    font-size: var(--fs-small);
+    margin-top: var(--s-6);
+  }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr 1.5fr;
+    gap: var(--s-4);
+    margin-bottom: var(--s-4);
+  }
+  @media (max-width: 820px) {
+    .footer-grid { grid-template-columns: 1fr; }
+  }
+  .site-footer h4 {
+    color: var(--warm-white);
+    font-family: var(--font-sans);
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin: 0 0 var(--s-2);
+  }
+  .site-footer a { color: var(--warm-white-2); text-decoration: none; }
+  .site-footer a:hover { color: var(--gold-soft); }
+  .nap-block address {
+    font-style: normal;
+    line-height: 1.8;
+  }
+  .nap-phone {
+    display: block;
+    font-family: var(--font-serif);
+    font-size: 1.3rem;
+    color: var(--warm-white) !important;
+    margin-top: 0.4rem;
+  }
+  .footer-grid-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    columns: 2;
+    column-gap: var(--s-2);
+    font-size: 0.85rem;
+    line-height: 1.9;
+  }
+  .footer-bottom {
+    border-top: 1px solid rgba(250, 247, 242, 0.15);
+    padding-top: var(--s-2);
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: var(--s-2);
+    font-size: var(--fs-micro);
+    color: var(--ink-muted);
+  }
+
+  /* ============================================================
+     STICKY MOBILE CALL BUTTON
+     ============================================================ */
+  .sticky-call {
+    display: none;
+    position: fixed;
+    bottom: 1rem;
+    left: 1rem;
+    right: 1rem;
+    background: var(--cherry-red);
+    color: var(--warm-white);
+    padding: 1rem;
+    border-radius: var(--radius-sm);
+    text-align: center;
+    font-weight: 600;
+    font-size: 1.05rem;
+    text-decoration: none;
+    z-index: 100;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+  }
+  @media (max-width: 760px) {
+    .sticky-call { display: block; }
+    body { padding-bottom: 5rem; }
+  }
+
+  /* ============================================================
+     DESIGN-SYSTEM-REFERENCE-ONLY HELPERS (not for production pages)
+     ============================================================ */
+  .ds-swatch {
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+  .ds-swatch-top { height: 80px; }
+  .ds-swatch-body { padding: 0.75rem 0.9rem; background: var(--warm-white); font-size: var(--fs-micro); }
+  .ds-swatch-body strong { display: block; font-size: var(--fs-small); color: var(--ink); margin-bottom: 2px; }
+  .ds-swatch-body code { font-family: ui-monospace, 'SF Mono', Menlo, monospace; color: var(--ink-muted); }
+  .ds-note {
+    background: var(--warm-white-2);
+    border-left: 3px solid var(--cherry-red);
+    padding: 1rem 1.2rem;
+    margin: var(--s-3) 0;
+    font-size: var(--fs-small);
+    color: var(--ink-soft);
+  }
+  .ds-label {
+    font-size: var(--fs-micro);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--ink-muted);
+    margin-bottom: 0.4rem;
+    font-weight: 600;
+  }
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     HEADER (canonical structure used on every page)
+     ============================================================ -->
+<header class="site-header">
+  <div class="nav-wrap">
+    <a href="/" class="brand">Macon <span class="brand-mark">Rodent Control</span></a>
+    <ul class="nav-links">
+      <li><a href="/">Home</a></li>
+      <li><a href="/services/">Services</a></li>
+      <li><a href="/areas/">Areas</a></li>
+      <li><a href="/blog/">Blog</a></li>
+      <li><a href="tel:8446350403" class="nav-call">Call (844) 635-0403</a></li>
+    </ul>
+  </div>
+</header>
+
+<!-- ============================================================
+     HERO (Cherry Street marquee — design reference)
+     ============================================================ -->
+<section class="hero">
+  <div class="container">
+    <span class="badge">Cherry Street Classic · Design System v1</span>
+    <h1>The visual contract for maconrodentcontrol.com</h1>
+    <p class="lede">Every page on this site uses the palette, typography, components, and spacing locked in this reference. Charcoal hero bands, warm-white surfaces, cherry-red CTAs, gold accent rules — the Cherry Street marquee, applied to a rodent-control site.</p>
+    <a href="tel:8446350403" class="btn btn-primary btn-lg">Call (844) 635-0403</a>
+    <a href="#palette" class="btn btn-secondary btn-lg" style="margin-left: 0.5rem;">View tokens</a>
+  </div>
+</section>
+
+<!-- Trust strip -->
+<div class="trust-strip">
+  <div class="container trust-strip-inner">
+    <span>Licensed</span>
+    <span>Insured</span>
+    <span>Locally Owned</span>
+    <span>Open 24/7</span>
+  </div>
+</div>
+
+<!-- ============================================================
+     PALETTE
+     ============================================================ -->
+<section id="palette">
+  <div class="container">
+    <h2 class="gold-rule">Color palette</h2>
+    <p>Five locked colors plus three neutral ramps. The 4-color contract: <strong>charcoal</strong> for hero bands and footer, <strong>warm-white</strong> for page background, <strong>cherry-red</strong> for every CTA and accent, <strong>gold-rule</strong> for hairline accents under H1s and CTA bands. Ink/border tokens handle text and structural lines.</p>
+
+    <div class="swatch-grid">
+      <div class="ds-swatch">
+        <div class="ds-swatch-top" style="background: #1A1A1A;"></div>
+        <div class="ds-swatch-body"><strong>Charcoal</strong><code>#1A1A1A · --charcoal</code></div>
+      </div>
+      <div class="ds-swatch">
+        <div class="ds-swatch-top" style="background: #2A2A2A;"></div>
+        <div class="ds-swatch-body"><strong>Charcoal soft</strong><code>#2A2A2A · --charcoal-soft</code></div>
+      </div>
+      <div class="ds-swatch">
+        <div class="ds-swatch-top" style="background: #FAF7F2; border-bottom: 1px solid #E5DDD0;"></div>
+        <div class="ds-swatch-body"><strong>Warm white</strong><code>#FAF7F2 · --warm-white</code></div>
+      </div>
+      <div class="ds-swatch">
+        <div class="ds-swatch-top" style="background: #F2EDE4;"></div>
+        <div class="ds-swatch-body"><strong>Warm white 2</strong><code>#F2EDE4 · --warm-white-2</code></div>
+      </div>
+      <div class="ds-swatch">
+        <div class="ds-swatch-top" style="background: #C8323C;"></div>
+        <div class="ds-swatch-body"><strong>Cherry red</strong><code>#C8323C · --cherry-red</code></div>
+      </div>
+      <div class="ds-swatch">
+        <div class="ds-swatch-top" style="background: #A0252E;"></div>
+        <div class="ds-swatch-body"><strong>Cherry red dk</strong><code>#A0252E · --cherry-red-dk</code></div>
+      </div>
+      <div class="ds-swatch">
+        <div class="ds-swatch-top" style="background: #C9A24B;"></div>
+        <div class="ds-swatch-body"><strong>Gold rule</strong><code>#C9A24B · --gold-rule</code></div>
+      </div>
+      <div class="ds-swatch">
+        <div class="ds-swatch-top" style="background: #1A1A1A;"></div>
+        <div class="ds-swatch-body"><strong>Ink</strong> (body)<code>#1A1A1A · --ink</code></div>
+      </div>
+      <div class="ds-swatch">
+        <div class="ds-swatch-top" style="background: #4A4A4A;"></div>
+        <div class="ds-swatch-body"><strong>Ink soft</strong><code>#4A4A4A · --ink-soft</code></div>
+      </div>
+      <div class="ds-swatch">
+        <div class="ds-swatch-top" style="background: #6E6E6E;"></div>
+        <div class="ds-swatch-body"><strong>Ink muted</strong><code>#6E6E6E · --ink-muted</code></div>
+      </div>
+      <div class="ds-swatch">
+        <div class="ds-swatch-top" style="background: #E5DDD0;"></div>
+        <div class="ds-swatch-body"><strong>Border</strong><code>#E5DDD0 · --border</code></div>
+      </div>
+      <div class="ds-swatch">
+        <div class="ds-swatch-top" style="background: #C9BFA8;"></div>
+        <div class="ds-swatch-body"><strong>Border strong</strong><code>#C9BFA8 · --border-strong</code></div>
+      </div>
+    </div>
+
+    <div class="ds-note">
+      <strong>Usage rules:</strong> Cherry red is the <em>only</em> CTA fill — never use it for body text or large surfaces. Gold-rule is hairlines only (2px max, under H1s and section headings). Charcoal hero bands always close with a 4px cherry-red bottom border. Warm-white is the page; warm-white-2 is for alternating section backgrounds and trust strips.
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     TYPOGRAPHY
+     ============================================================ -->
+<section style="background: var(--warm-white-2);">
+  <div class="container">
+    <h2 class="gold-rule">Typography</h2>
+    <p>DM Serif Display for headings — high-contrast didone with restrained personality, evokes downtown Macon marquee signage. DM Sans for body and UI — neutral, highly readable at small sizes, the workhorse.</p>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-4); margin-top: var(--s-3);" class="type-spec-grid">
+      <div>
+        <div class="ds-label">Serif — DM Serif Display</div>
+        <div style="font-family: var(--font-serif); font-size: 3rem; line-height: 1.1; color: var(--ink);">Aa Bb Cc</div>
+        <p style="font-size: var(--fs-micro); color: var(--ink-muted);">Display / H1 / H2 / H3 / H4 — weight 400 only</p>
+      </div>
+      <div>
+        <div class="ds-label">Sans — DM Sans</div>
+        <div style="font-family: var(--font-sans); font-size: 3rem; line-height: 1.1; color: var(--ink); font-weight: 500;">Aa Bb Cc</div>
+        <p style="font-size: var(--fs-micro); color: var(--ink-muted);">Body / UI / Buttons — 400, 500, 600, 700</p>
+      </div>
+    </div>
+
+    <h3 style="margin-top: var(--s-4);">Type scale</h3>
+    <div style="background: var(--warm-white); border: 1px solid var(--border); border-radius: var(--radius-md); padding: var(--s-3);">
+      <div style="font-family: var(--font-serif); font-size: 3.2rem; line-height: 1.1;">Display — fs-display</div>
+      <div style="font-family: var(--font-serif); font-size: 2.4rem; line-height: 1.15; margin-top: 0.6rem;">Heading 1 — fs-h1</div>
+      <div style="font-family: var(--font-serif); font-size: 1.8rem; line-height: 1.2; margin-top: 0.6rem;">Heading 2 — fs-h2</div>
+      <div style="font-family: var(--font-serif); font-size: 1.3rem; line-height: 1.3; margin-top: 0.6rem;">Heading 3 — fs-h3</div>
+      <div style="font-family: var(--font-sans); font-size: 1.0625rem; line-height: 1.65; margin-top: 0.8rem; color: var(--ink-soft);">Body 17px — DM Sans regular. Comfortable reading rhythm at 1.65 line-height, max-width 68ch. Used for nearly all page copy, FAQ answers, and process step descriptions.</div>
+      <div style="font-family: var(--font-sans); font-size: 0.9375rem; margin-top: 0.6rem; color: var(--ink-soft);">Small 15px — secondary UI, nav links, card metadata.</div>
+      <div style="font-family: var(--font-sans); font-size: 0.8125rem; margin-top: 0.6rem; color: var(--ink-muted); text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600;">Micro 13px — labels, eyebrows, footer fine print</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     BUTTONS & CTAs
+     ============================================================ -->
+<section>
+  <div class="container">
+    <h2 class="gold-rule">Buttons & call-to-action</h2>
+    <p>All CTAs are <code>&lt;a href="tel:8446350403"&gt;</code> links — no forms anywhere on the site. The primary button (cherry-red) appears at least 4 times per page: header, hero, mid-page band, footer, and the sticky mobile bar.</p>
+
+    <div style="display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; margin: var(--s-3) 0;">
+      <a href="tel:8446350403" class="btn btn-primary">Call (844) 635-0403</a>
+      <a href="tel:8446350403" class="btn btn-primary btn-lg">Call (844) 635-0403</a>
+      <a href="#" class="btn btn-outline-dark">Secondary action</a>
+    </div>
+    <div style="display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; padding: var(--s-3); background: var(--charcoal); border-radius: var(--radius-md);">
+      <a href="tel:8446350403" class="btn btn-primary">Call (844) 635-0403</a>
+      <a href="#" class="btn btn-secondary">On-dark secondary</a>
+    </div>
+
+    <h3 style="margin-top: var(--s-4);">Review badge — visual only</h3>
+    <p style="margin-bottom: var(--s-2);">A "4.9★ — 100+ Reviews" badge is fine as a visual element. <strong>It never appears in JSON-LD as aggregateRating</strong> — that would be fabricated data.</p>
+    <div class="review-badge">
+      <span class="review-stars">★★★★★</span>
+      <span><strong>4.9</strong> · 100+ Macon customer reviews</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     CARDS
+     ============================================================ -->
+<section style="background: var(--warm-white-2);">
+  <div class="container">
+    <h2 class="gold-rule">Cards</h2>
+    <p>Service cards on the homepage and index pages. Standard card for most uses; feature card (charcoal) reserved for the 1-2 hero services on the homepage.</p>
+
+    <div class="card-grid-3" style="margin-top: var(--s-3);">
+      <div class="card">
+        <h3>Rat control services</h3>
+        <p>Norway and roof rat removal across Bibb County. Inspection, exclusion, and follow-up monitoring.</p>
+        <a href="/services/rat-control-services" class="card-link">Service details</a>
+      </div>
+      <div class="card card-feature">
+        <h3>Emergency rodent removal</h3>
+        <p>Same-day response across Macon. Open 24/7 for active infestations and after-hours calls.</p>
+        <a href="#" class="card-link">Service details</a>
+      </div>
+      <div class="card">
+        <h3>Mice control services</h3>
+        <p>House mouse extermination with humidity-aware sealing for Macon's subtropical climate.</p>
+        <a href="/services/mice-control-services" class="card-link">Service details</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     MID-PAGE CTA BAND
+     ============================================================ -->
+<div class="cta-band">
+  <div class="container">
+    <h2>Same-day rodent service in Macon — call (844) 635-0403</h2>
+    <a href="tel:8446350403" class="btn btn-primary btn-lg" style="margin-top: var(--s-3);">Call now</a>
+  </div>
+</div>
+
+<!-- ============================================================
+     COMPARISON TABLE
+     ============================================================ -->
+<section>
+  <div class="container">
+    <h2 class="gold-rule">Comparison table</h2>
+    <p>Used on the homepage and top-tier service pages for rodent identification, DIY vs. professional, and pricing breakdowns.</p>
+
+    <table class="comp-table">
+      <thead>
+        <tr><th>Trait</th><th>Norway rat</th><th>Roof rat</th><th>House mouse</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Typical size</td><td>10–12 in body + tail</td><td>7–10 in body + tail</td><td>3–4 in body + tail</td></tr>
+        <tr><td>Where it nests</td><td>Burrows, crawl spaces, basements</td><td>Attics, upper walls, trees</td><td>Wall voids, cabinets, garages</td></tr>
+        <tr><td>Common Macon trigger</td><td>Ocmulgee corridor, commercial alleys</td><td>Mature pecan/live-oak canopy</td><td>Year-round household entry</td></tr>
+        <tr><td>Peak season</td><td>Fall + cold snaps</td><td>Late summer through winter</td><td>Year-round (subtropical)</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ============================================================
+     PROCESS STEPS
+     ============================================================ -->
+<section style="background: var(--warm-white-2);">
+  <div class="container">
+    <h2 class="gold-rule">Process steps</h2>
+    <p>Four numbered steps with serif numerals and cherry-red top rules. Step text varies per service — never identical boilerplate across pages.</p>
+
+    <div class="process-grid">
+      <div class="step">
+        <h3>Inspect</h3>
+        <p>Full property walk: roofline, crawl space, attic, foundation, utility penetrations. Identify species and entry points.</p>
+      </div>
+      <div class="step">
+        <h3>Identify</h3>
+        <p>Confirm rodent species (Norway, roof rat, house mouse) and severity. Map nesting areas and travel routes.</p>
+      </div>
+      <div class="step">
+        <h3>Treat</h3>
+        <p>Targeted removal using appropriate methods — snap traps, exclusion, or bait stations depending on situation and site.</p>
+      </div>
+      <div class="step">
+        <h3>Prevent</h3>
+        <p>Seal entry points with rodent-grade materials. Schedule follow-up inspection to verify no return activity.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FAQ
+     ============================================================ -->
+<section>
+  <div class="container container-narrow">
+    <h2 class="gold-rule">FAQ pattern</h2>
+    <p>Native HTML <code>&lt;details&gt;</code> elements — zero JS dependency, accessible by default. Each service page gets 9 hand-written Q&amp;A pairs; area pages get 6. <code>FAQPage</code> schema accompanies every FAQ block.</p>
+
+    <div class="faq">
+      <details>
+        <summary>How quickly can you respond to a Macon rodent call?</summary>
+        <p>Same-day inspections are standard for active infestations across Bibb County. We're open 24/7 — calls placed before 9 a.m. typically get an inspection that same afternoon. Outer-county addresses (Warner Robins, Forsyth, Milledgeville) may run a day longer in peak season.</p>
+      </details>
+      <details>
+        <summary>Are your treatments safe around pets and kids?</summary>
+        <p>Yes. We use tamper-resistant bait stations for any rodenticide work, placed in locations pets and children can't access. For interior infestations we lean on snap traps and exclusion rather than poison — it's faster, cleaner, and removes the wall-decomposition risk.</p>
+      </details>
+      <details>
+        <summary>Why do older Vineville and Ingleside homes get more roof rats?</summary>
+        <p>Two reasons. The mature pecan and live-oak canopy throughout those neighborhoods gives roof rats direct attic access via overhanging branches. And the early-1900s housing stock typically has wood-shingle vents, soffit gaps, and unfinished knee-wall cavities that act as ready-made rat highways once they're in.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FOOTER (canonical structure used on every page — identical)
+     ============================================================ -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="nap-block">
+        <h4>Macon Rodent Control</h4>
+        <address>
+          3180 Vineville Ave<br>
+          Macon, GA 31204<br>
+          <a class="nap-phone" href="tel:8446350403">(844) 635-0403</a>
+          <span style="display:block; margin-top:0.4rem;">contact@maconrodentcontrol.com</span>
+          <span style="display:block; margin-top:0.4rem; color: var(--gold-soft);">Open 24/7 · Same-day service</span>
+        </address>
+      </div>
+
+      <div>
+        <h4>Service Areas</h4>
+        <ul class="footer-grid-list">
+          <li><a href="/areas/downtown">Downtown</a></li>
+          <li><a href="/areas/vineville">Vineville</a></li>
+          <li><a href="/areas/ingleside">Ingleside</a></li>
+          <li><a href="/areas/shirley-hills">Shirley Hills</a></li>
+          <li><a href="/areas/east-macon">East Macon</a></li>
+          <li><a href="/areas/north-highlands">North Highlands</a></li>
+          <li><a href="/areas/warner-robins">Warner Robins</a></li>
+          <li><a href="/areas/perry">Perry</a></li>
+          <li><a href="/areas/byron">Byron</a></li>
+          <li><a href="/areas/forsyth">Forsyth</a></li>
+          <li><a href="/areas/milledgeville">Milledgeville</a></li>
+          <li><a href="/areas/">See all 37 →</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4>Services</h4>
+        <ul class="footer-grid-list">
+          <li><a href="/services/rat-control-services">Rat control</a></li>
+          <li><a href="/services/mice-control-services">Mice control</a></li>
+          <li><a href="/services/rodent-removal-services">Rodent removal</a></li>
+          <li><a href="/services/emergency-rodent-removal">Emergency removal</a></li>
+          <li><a href="/services/roof-rat-removal-services">Roof rats</a></li>
+          <li><a href="/services/norway-rat-control-services">Norway rats</a></li>
+          <li><a href="/services/rodent-exclusion-services">Rodent exclusion</a></li>
+          <li><a href="/services/attic-rodent-proofing">Attic proofing</a></li>
+          <li><a href="/services/restaurant-rodent-control-services">Restaurant control</a></li>
+          <li><a href="/services/historic-home-rodent-control">Historic homes</a></li>
+          <li><a href="/services/">See all 28 →</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2026 Macon Rodent Control · Founded 2023 · Locally owned</span>
+      <span><a href="/privacy">Privacy</a> · <a href="/terms">Terms</a> · <a href="/contact">Contact</a></span>
+    </div>
+  </div>
+</footer>
+
+<!-- Sticky mobile call button (visible on viewports ≤760px) -->
+<a href="tel:8446350403" class="sticky-call">📞 Call (844) 635-0403 — Open 24/7</a>
+
+</body>
+</html>

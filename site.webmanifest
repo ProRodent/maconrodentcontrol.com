@@ -1,0 +1,12 @@
+{
+  "name": "Macon Rodent Control",
+  "short_name": "Macon Rodent",
+  "icons": [
+    { "src": "/images/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/images/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ],
+  "theme_color": "#C8323C",
+  "background_color": "#FAF7F2",
+  "display": "standalone",
+  "start_url": "/"
+}
